@@ -24,8 +24,8 @@ def main(*args):
     test_FairLR(*args)
 
 if __name__ == '__main__':
-    save_md = 'FLR_model.sm'
-    save_te = 'adult_testset.te'
-    save_dir = ''
+    save_md = '../results/FLR_model.sm'
+    save_te = '../results/adult_testX.te'
+    save_dir = '../results'
     
     main(save_md, save_te,save_dir)

@@ -273,6 +273,6 @@ def main(**args):
 
 if __name__ == '__main__':
 #     data = 
-#     save_dir = 
+	save_dir = '../results'
 #     filename = 
-	main()
+	main(save_dir =save_dir)

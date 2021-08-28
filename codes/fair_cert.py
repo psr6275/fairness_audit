@@ -18,7 +18,7 @@ def main(*args):
 	evaluate_model(*args)
 
 if __name__ == '__main__':
-    path_pr = 'adult_flr_pred.pr'
-    path_te = 'adult_testset.te'
+    path_pr = '../results/adult_flr_pred.pr'
+    path_te = '../results/adult_testset.te'
     
     main(path_pr, path_te)
