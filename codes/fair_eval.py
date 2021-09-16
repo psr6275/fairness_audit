@@ -12,18 +12,25 @@ def calculate_mistreatment(pred, y, xs,cond = 1):
         cond = 1 : False negative rate
         cond = -1: False positive rate
     """
+    xs = xs.flatten()
+
+    if min(y)==0:
+        y_ = (y*2)-1
+        pred_ = pred*2-1
+    else:
+        y_ = y
+        pred_ = pred
     assert cond in [-1,1]
     
-    fr0 = sum((pred==-cond)*(y==cond)*(xs==0))
-    fr1 = sum((pred==-cond)*(y==cond)*(xs==1))
-    
-    s0 = sum((y==cond)*(xs==0))
-    s1 = sum((y==cond)*(xs==1))
+    fr0 = sum((pred_==-cond)*(y_==cond)*(xs==0))
+    fr1 = sum((pred_==-cond)*(y_==cond)*(xs==1))
+    s0 = sum((y_==cond)*(xs==0))
+    s1 = sum((y_==cond)*(xs==1))
 
     
     prule = min((fr0/s0)/(fr1/s1),(fr1/s1)/(fr0/s0))*100
     
-    return prule    
+    return prule        
 def calculate_impact(pred,y,xs):
     
     idx_yps0 = (pred==1)*(xs==0)
@@ -83,6 +90,11 @@ def calculate_group_loss(loss_fn, pred, y, xs):
     
 def l2_loss(pred,y):
     return np.mean((pred-y)**2)
+
+eps = np.finfo(float).eps
+
+def bce_loss(pred_,y):
+    return -np.mean(y*np.log(pred_+eps)+(1-y)*np.log(1-pred_+eps))
 
 def calculate_overall_accuracy(pred,y):
     pred = pred.flatten()
