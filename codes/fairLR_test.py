@@ -1,5 +1,6 @@
 import numpy as np
 from save_utils import load_flr, load_nparray,save_prediction
+from fair_eval import calculate_prule_clf, calculate_odds_clf, calculate_parity_reg, calculate_group_loss,l2_loss, calculate_overall_accuracy,bce_loss
 
 def predict_FairLR(X_te, coef):
     res = np.dot(X_te, coef)
@@ -19,6 +20,13 @@ def test_FairLR(save_md, save_te, save_dir = ''):
     print("save prediction")
     save_prediction(pred,'adult',save_dir,'flr')
 
+def test_FLR(X_te, y_te,xs_te,load_path = '../results/compas_FLR_model.sm'):
+    coef = load_flr('../results/compas_FLR_model.sm')
+    pred = predict_FairLR(X_te,coef)
+    calculate_overall_accuracy(pred,y_te)
+    calculate_prule_clf(pred,y_te,xs_te)
+    calculate_odds_clf(pred,y_te,xs_te)
+    
 def main(*args):    
     print(args)
     test_FairLR(*args)

@@ -29,7 +29,7 @@ def load_singlefold(savepath):
         Xtr,Xte,ytr,yte,Ztr,Zte = pickle.load(f)
     return Xtr,Xte,ytr,yte,Ztr,Zte
 
-def read_german(filepath='../data/german.data-numeric', svm =False,random_state=42, intercept = False):
+def load_german_data(filepath='../data/german.data-numeric', svm =False,random_state=42, intercept = False):
     """
     Read the german dataset.
 
@@ -408,8 +408,8 @@ def load_compas_data(COMPAS_INPUT_FILE = "../data/compas.csv", svm = False,rando
     FEATURES_CLASSIFICATION = ["age_cat", "race", "sex", "priors_count", "c_charge_degree"] #features to be used for classification
     CONT_VARIABLES = ["priors_count"] # continuous features, will need to be handled separately from categorical features, categorical features will be encoded using one-hot
     CLASS_FEATURE = "two_year_recid" # the decision variable
-    SENSITIVE_ATTRS = ["race", "sex"]
-
+#     SENSITIVE_ATTRS = ["race", "sex"]
+    SENSITIVE_ATTRS = ["race"]
 
     # load the data and get some stats
     df = pd.read_csv(COMPAS_INPUT_FILE)
