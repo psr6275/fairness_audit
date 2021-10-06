@@ -98,5 +98,5 @@ def bce_loss(pred_,y):
 
 def calculate_overall_accuracy(pred,y):
     pred = pred.flatten()
-    return np.sum(pred==y)/len(pred)
+    print("Overall accuracy:",np.sum(pred==y)/len(pred))
 
