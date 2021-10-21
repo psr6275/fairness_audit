@@ -1,0 +1,8 @@
+codes/__pycache__/
+codes/.ipynb_checkpoints/
+.DS_Store
+*.py[co]
+*.pot
+*.egg-info
+MANIFAST
+__pycache__
