@@ -15,6 +15,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 
 import numpy as np
+import math
+
+from generate_data import *
 
 train_frac = 0.7
 # random_state=42
@@ -28,6 +31,26 @@ def load_singlefold(savepath):
     with open(savepath,'rb') as f:
         Xtr,Xte,ytr,yte,Ztr,Zte = pickle.load(f)
     return Xtr,Xte,ytr,yte,Ztr,Zte
+
+def load_sythetic_data(plot_data=True,n_samples = 1000,disc_factor = math.pi / 4.0,random_state=42, svm =False, intercept = False):
+    X,y,Z = generate_synthetic_data(plot_data=True,n_samples = 1000,disc_factor = math.pi / 4.0)
+
+    tr_idx, te_idx = _get_train_test_split(n_samples, train_frac, random_state)
+    if not svm:
+        y = (y+1)/2
+    Xtr, Xte, ytr, yte, Ztr, Zte = _apply_train_test_split(X, y, np.array(Z['s1']).reshape(-1,1),
+                                                           tr_idx, te_idx)
+    
+    mm = MinMaxScaler()
+    Xtr = mm.fit_transform(Xtr)
+    Xte = mm.transform(Xte)
+
+    # Add intercept
+    if intercept:
+        Xtr, Xte = _add_intercept(Xtr, Xte)
+    
+    return Xtr, Xte, ytr, yte, Ztr, Zte
+
 
 def load_german_data(filepath='../data/german.data-numeric', svm =False,random_state=42, intercept = False):
     """
