@@ -33,20 +33,30 @@ def save_testdata(Xte, yte,zte,data = 'adult',save_dir = ''):
     res['yte'] = yte
     res['zte'] = zte
     
-    save_path = os.path.join(save_dir,data+'_testset.te')
-    save_path2 = os.path.join(save_dir,data+'_testX.te')
-    with open(save_path,'wb') as f:
-        pickle.dump(res,f)
-    print("saved in ", save_path)
-    
+#     save_path = os.path.join(save_dir,data+'_testset.te')
+    save_path1 = os.path.join(save_dir,data+'_testX.te')
+    save_path2 = os.path.join(save_dir,data+'_testY.te')
+    save_path3 = os.path.join(save_dir,data+'_testZ.te')    
+    with open(save_path1,'wb') as f:
+        pickle.dump(Xte,f)
     with open(save_path2,'wb') as f:
-        pickle.dump(res['Xte'],f)
-    print("saved in ", save_path2)
+        pickle.dump(yte,f)
+    with open(save_path3,'wb') as f:
+        pickle.dump(zte,f)
+    print("saved in ", save_path1,save_path2,save_path3)
 
-def load_testdata(save_path):
-    with open(save_path,'rb') as f:
-        aa = pickle.load(f)
-    return aa['Xte'], aa['yte'], aa['zte']
+def load_testdata(save_dir,data):
+    save_path1 = os.path.join(save_dir,data+'_testX.te')
+    save_path2 = os.path.join(save_dir,data+'_testY.te')
+    save_path3 = os.path.join(save_dir,data+'_testZ.te')    
+    with open(save_path1,'rb') as f:
+        Xte = pickle.load(f)
+    with open(save_path2,'rb') as f:
+        yte = pickle.load(f)
+    with open(save_path3,'rb') as f:
+        zte = pickle.load(f)
+
+    return Xte,yte,zte
 
 def load_nparray(save_path):
     with open(save_path,'rb') as f:
