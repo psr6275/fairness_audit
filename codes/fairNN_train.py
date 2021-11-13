@@ -128,7 +128,7 @@ def test_FNN(clf, test_loader,loss_fn = 'bce',thr = 0.5):
     clf_pred = clf_pred.flatten().detach().cpu().numpy()
     if loss_fn =='bce':
         loss_fn = bce_loss
-    calculate_overall_accuracy(pred*2-1,y_te*2-1)
+    calculate_overall_accuracy(pred*2-1,y_te.flatten()*2-1)
     calculate_group_loss(loss_fn,clf_pred,y_te,xs_te)
 
 def train_fnn(lmd = 30.0,data = 'adult',save_dir = '',filename='FNN_model'):
@@ -173,7 +173,7 @@ def train_fnn(lmd = 30.0,data = 'adult',save_dir = '',filename='FNN_model'):
     pretrain_adv(clf,adv,train_loader,adv_criterion,adv_optimizer,lambdas, n_epoch = 5)
     
     # Train the classfier with the adversary
-    train_FNN_torch(clf, adv, train_loader,test_loader, clf_criterion, adv_criterion,clf_optimizer,adv_optimizer, lambdas, n_epoch = 165)
+    train_FNN_torch(clf, adv, train_loader,test_loader, clf_criterion, adv_criterion,clf_optimizer,adv_optimizer, lambdas, n_epoch = 50)
     
     save_path = os.path.join(save_dir,data+'_'+filename)
     torch.save(clf.state_dict(),save_path)

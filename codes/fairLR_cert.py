@@ -22,7 +22,7 @@ def calculate_fairness_metrics(pred,y_te,z_te):
 
 def certify_FLR(dataname,save_dir):
     # load test y and z
-    save_path = os.path.join(save_dir,dataname+'_testset.te')
+    save_path = os.path.join(save_dir,dataname+'_flr_testset.te')
     _,y_te,z_te = load_testdata(save_path)
     
     # load prediction results

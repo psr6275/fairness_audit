@@ -267,7 +267,7 @@ def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model'):
     coef = train_FairLR(X_tr, y_tr, xs_tr, loss_fn, fair_const, acc_const ,sep_const , sen_cov_thresh, gamma)
     
     print("save model")
-    save_flr(coef, save_dir, filename)
+    save_flr(coef, save_dir, data+'_'+filename)
     
     print("save testdata")
     save_testdata(X_te,y_te,xs_te,data+'_flr', save_dir)
