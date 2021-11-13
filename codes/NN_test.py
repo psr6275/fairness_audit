@@ -26,7 +26,7 @@ def test_NN(save_md, save_te, dataname = 'adult', save_dir='../results'):
     pred = (clf_pred>0.5).float().flatten().detach().cpu().numpy()
     
     print("save prediction")
-    save_prediction(pred,dataname,save_dir,'fnn')
+    save_prediction(pred,dataname,save_dir,'nn')
     
 
 def main(**args):    

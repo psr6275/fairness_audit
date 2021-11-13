@@ -22,11 +22,11 @@ def calculate_fairness_metrics(pred,y_te,z_te):
 
 def certify_NN(dataname,save_dir):
     # load test y and z
-    save_path = os.path.join(save_dir,dataname+'_nn_testset.te')
-    _,y_te,z_te = load_testdata(save_path)
+#     save_path = os.path.join(save_dir,dataname+'_nn_testset.te')
+    _,y_te,z_te = load_testdata(save_dir,dataname+'_nn')
     
     # load prediction results
-    save_path2 = os.path.join(save_dir,dataname+'_fnn_pred.pr')
+    save_path2 = os.path.join(save_dir,dataname+'_nn_pred.pr')
     pred = load_nparray(save_path2)
     print(pred.shape)
     calculate_fairness_metrics(pred.flatten()*2-1,y_te.flatten()*2-1,z_te.flatten())
