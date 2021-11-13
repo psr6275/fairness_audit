@@ -586,11 +586,11 @@ def load_adult_data_prev(load_data_size=None,svm = False,random_state=42, interc
         print("for svm min: ",min(y), "and max: ",max(y))
     n = X.shape[0]
 #     print(x_control)
-    print(n)
+#     print(n)
     Z = np.zeros((n,len(x_control.keys())))
     for i,k in enumerate(x_control.keys()):
         Z[:,i] = x_control[k]
-    print(Z.shape)
+#     print(Z.shape)
     tr_idx, te_idx = _get_train_test_split(n, train_frac, random_state)
     Xtr, Xte, ytr, yte, Ztr, Zte = _apply_train_test_split(X, y, Z,
                                                            tr_idx, te_idx)
@@ -601,8 +601,8 @@ def load_adult_data_prev(load_data_size=None,svm = False,random_state=42, interc
     Xtr = mm.fit_transform(Xtr)
     Xte = mm.transform(Xte)
 
-    # Center sensitive data
-    Ztr, Zte = _center_data(Ztr, Zte)
+#     # Center sensitive data
+#     Ztr, Zte = _center_data(Ztr, Zte)
 
     # Add intercept
     if intercept:

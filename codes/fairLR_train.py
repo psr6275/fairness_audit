@@ -239,18 +239,18 @@ def train_FairLR(X, y, xs, loss_function, fair_const = 1, acc_const = 0, sep_con
 
     return w.x
 
-def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model'):
+def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model',rs=42):
     print("load data:", data)
     if data == 'adult':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data(svm=True,random_state=42,intercept=True)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data_prev(svm=True,random_state=rs,intercept=True)
     elif data == 'bank':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=True,random_state=42,intercept=True)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=True,random_state=rs,intercept=True)
     elif data == 'compas':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=True,random_state=42,intercept=True)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=True,random_state=rs,intercept=True)
     elif data == 'german':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=True,random_state=42,intercept=True)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=True,random_state=rs,intercept=True)
     elif data == 'lsac':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=True,random_state=42,intercept=True)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=True,random_state=rs,intercept=True)
     fair_const = 1 # for fairness constraints setting
     acc_const = 0
     sep_const = 0

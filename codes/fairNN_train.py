@@ -131,18 +131,18 @@ def test_FNN(clf, test_loader,loss_fn = 'bce',thr = 0.5):
     calculate_overall_accuracy(pred*2-1,y_te.flatten()*2-1)
     calculate_group_loss(loss_fn,clf_pred,y_te,xs_te)
 
-def train_fnn(lmd = 30.0,data = 'adult',save_dir = '',filename='FNN_model'):
+def train_fnn(lmd = 30.0,data = 'adult',save_dir = '',filename='FNN_model',rs=42):
     print("load data:", data)
     if data == 'adult':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data_prev(svm=False,random_state=rs,intercept=False)
     elif data == 'bank':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=False,random_state=rs,intercept=False)
     elif data == 'compas':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=False,random_state=rs,intercept=False)
     elif data == 'german':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=False,random_state=rs,intercept=False)
     elif data == 'lsac':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=False,random_state=rs,intercept=False)
     
     y_tr = y_tr.astype('float32')
     y_te = y_te.astype('float32')

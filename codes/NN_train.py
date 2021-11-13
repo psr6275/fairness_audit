@@ -53,18 +53,18 @@ def train_NN(clf,train_loader,clf_criterion,clf_optimizer, n_epoch = 5):
             clf_optimizer.step()
     return clf
 
-def train_nn(data = 'adult',save_dir = '',filename='NN_model.sm'):
+def train_nn(data = 'adult',save_dir = '',filename='NN_model.sm',rs = 42):
     print("load data:", data)
     if data == 'adult':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_adult_data_prev(svm=False,random_state=rs,intercept=False)
     elif data == 'bank':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_bank_data(svm=False,random_state=rs,intercept=False)
     elif data == 'compas':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=False,random_state=rs,intercept=False)
     elif data == 'german':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=False,random_state=rs,intercept=False)
     elif data == 'lsac':
-        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=False,random_state=42,intercept=False)
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=False,random_state=rs,intercept=False)
     
     y_tr = y_tr.astype('float32')
     y_te = y_te.astype('float32')

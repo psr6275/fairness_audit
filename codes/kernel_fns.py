@@ -10,9 +10,12 @@ def rbf_kernel(X, Y=None, gamma=None):
     XX = np.einsum('ij,ij->i', X, X)[:,np.newaxis]
     YY = np.einsum('ij,ij->i', Y, Y)[:,np.newaxis]
     XY = np.dot(X,Y.T)
+#     print(XX.shape)
+#     print(YY.shape)
+#     print(XY.shape)
     K = -2*XY
     K += XX
-    K += YY
+    K += YY.T
 #     K = euclidean_distances(X, Y, squared=True)
     np.maximum(K,0,out=K)
     if X is Y:
