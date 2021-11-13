@@ -10,6 +10,7 @@ import sys
 
 from load_data import *
 from save_utils import save_flr, save_testdata
+import argparse
 
 
 SEED = 1122334455
@@ -69,7 +70,7 @@ def test_sensitive_attr_constraint_cov(model, x_arr, y_arr_dist_boundary, x_cont
 
     
 
-
+    
     assert(x_arr.shape[0] == x_control.shape[0])
     if len(x_control.shape) > 1: # make sure we just have one column in the array
         assert(x_control.shape[1] == 1)
@@ -248,7 +249,8 @@ def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model'):
         X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_compas_data(svm=True,random_state=42,intercept=True)
     elif data == 'german':
         X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_german_data(svm=True,random_state=42,intercept=True)
-        
+    elif data == 'lsac':
+        X_tr, X_te, y_tr, y_te, xs_tr, xs_te = load_lsac_data(svm=True,random_state=42,intercept=True)
     fair_const = 1 # for fairness constraints setting
     acc_const = 0
     sep_const = 0
@@ -257,6 +259,10 @@ def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model'):
     sen_cov_thresh = 0 # threshold for fairness level (0: perfect fairness)
     gamma = None
     
+    xs_tr = xs_tr.flatten()
+    xs_te = xs_te.flatten()
+    y_te = y_te.flatten()
+    y_tr = y_tr.flatten()
     print("train FLR model")
     coef = train_FairLR(X_tr, y_tr, xs_tr, loss_fn, fair_const, acc_const ,sep_const , sen_cov_thresh, gamma)
     
@@ -264,7 +270,7 @@ def train_flr(data = 'adult',save_dir = '', filename = 'FLR_model'):
     save_flr(coef, save_dir, filename)
     
     print("save testdata")
-    save_testdata(X_te,y_te,xs_te,data, save_dir)
+    save_testdata(X_te,y_te,xs_te,data+'_flr', save_dir)
     
 
 def main(**args):
@@ -272,7 +278,13 @@ def main(**args):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description = 'Argument for training fair LR')
+    parser.add_argument('--dataname',type=str,default='adult',help='select data among adult,bank,compas,german,lsac')
+    parser.add_argument('--result_dir', type=str, default='../results',help='save directory for data and model')
+    parser.add_argument('--file_name', type=str, default='FLR_model',help='file name for dataset and model')
+    args = parser.parse_args()
+    
 #     data = 
-	save_dir = '../results'
+# 	save_dir = '../results'
 #     filename = 
-	main(save_dir =save_dir)
+    main(save_dir =args.result_dir,data=args.dataname, filename=args.file_name)
