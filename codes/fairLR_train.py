@@ -9,13 +9,18 @@ import matplotlib.pyplot as plt # for plotting stuff
 import sys
 
 from load_data import *
-from save_utils import save_flr, save_testdata
+from save_utils import save_testdata
 import argparse
 
 
 SEED = 1122334455
 seed(SEED) # set the random seed so that the random permutations can be reproduced again
 np.random.seed(SEED)
+
+def save_flr(coef, save_dir = '', filename = 'FLR_model' ):
+    save_path = os.path.join(save_dir, filename)
+    np.save(save_path, coef,allow_pickle=False)
+    print("saved in ",save_path)
 
 def get_one_hot_encoding(in_arr):
     """

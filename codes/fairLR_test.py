@@ -1,5 +1,5 @@
 import numpy as np
-from save_utils import load_flr, load_nparray,save_prediction
+from save_utils import load_nparray,save_prediction
 from fair_eval import calculate_prule_clf, calculate_odds_clf, calculate_parity_reg, calculate_group_loss,l2_loss, calculate_overall_accuracy,bce_loss
 import argparse
 import os
@@ -8,6 +8,10 @@ def predict_FairLR(X_te, coef):
     res = np.dot(X_te, coef)
     return np.sign(res)
 #     return res
+
+def load_flr(save_path):
+    return np.load(save_path)    
+
 
 def test_FairLR(save_md, save_te, dataname='adult', save_dir = ''):
     print("load FLR model")
@@ -44,6 +48,6 @@ if __name__ == '__main__':
 #     save_md = '../results/FLR_model.sm'
 #     save_te = '../results/adult_testX.te'
 #     save_dir = '../results'
-    save_md = os.path.join(args.result_dir,args.dataname+"_FLR_model.sm")
+    save_md = os.path.join(args.result_dir,args.dataname+"_FLR_model.npy")
     test_data = os.path.join(args.result_dir,args.dataname+"_flr_testX.te")
     main(save_md = save_md, save_te = test_data,save_dir = args.result_dir,dataname = args.dataname)

@@ -2,16 +2,8 @@ import pickle
 import os
 
 
-def save_flr(coef, save_dir = '', filename = 'FLR_model' ):
-    save_path = os.path.join(save_dir, filename+'.sm')
-    with open(save_path,'wb') as f:
-        pickle.dump(coef,f)
-    print("saved in ",save_path)
 
-def load_flr(save_path):
-    with open(save_path,'rb') as f:
-        aa = pickle.load(f)
-    return aa    
+
 
 def save_lr(clf, save_dir = '', filename = 'lr_model'):
     res = {}

@@ -110,7 +110,7 @@ def load_adult_data(filepath = '../data/adult_proc.csv',svm=False,random_state=4
     target_attr = ['income']
     if sensitive_attrs is None:
         sensitive_attrs = ['sex']
-    attrs_to_ignore = ['race','sex','marital-status']
+    attrs_to_ignore = ['race','sex','marital-status','Unnamed: 0']
     attrs_for_classification = set(attrs) - set(attrs_to_ignore) - set(target_attr)
     X = df[attrs_for_classification].values
     y = df[target_attr].values
@@ -149,7 +149,7 @@ def load_compas_data(filepath = '../data/compas_proc.csv',svm=False,random_state
     target_attr = ['is_recid']
     if sensitive_attrs is None:
         sensitive_attrs = ['race']
-    attrs_to_ignore = ['race','sex']
+    attrs_to_ignore = ['race','sex','Unnamed: 0']
     
     df['race'] = df['race'].map({1.0:1.0, 0.0: 0.0,2.0:1.0})
     
@@ -191,7 +191,7 @@ def load_lsac_data(filepath='../data/lsac_proc.csv',svm=False,random_state=42,in
     target_attr = ['pass_bar']
     if sensitive_attrs is None:
         sensitive_attrs = ['sex']
-    attrs_to_ignore = ['race','sex']
+    attrs_to_ignore = ['race','sex','Unnamed: 0']
     attrs_for_classification = set(attrs) - set(attrs_to_ignore) - set(target_attr)
     X = df[attrs_for_classification].values
     y = df[target_attr].values
