@@ -81,6 +81,9 @@ def sigmoid_kernel(X, Y=None, gamma=None, coef0=1):
 def calculate_kernel(X,Y=None, kernel = 'linear', **kwds):
     assert kernel in ['linear', 'rbf','poly','sigmoid']
     metric = eval(kernel+'_kernel')
-    out = metric(X,Y,**kwds)
+    if kernel == 'linear':
+        out = linear_kernel(X,Y)
+    else:
+        out = metric(X,Y,**kwds)
     return out
 
