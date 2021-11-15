@@ -19,6 +19,25 @@ def load_svm(save_dir='',dataname='adult',filename='SVM_model'):
         res[mi] = aa
     return res      
 
+def predict_large_lin_svm(X_te,sv,alpha,intercept,kernel,gamma,**kwds):
+    Ktests = []
+    batch_num = 100
+    if sv.shape[0]%batch_num ==0:
+        sp_num = int(sv.shape[0]/batch_num)
+    else:
+        sp_num = int(sv.shape[0]/batch_num) +1
+    dv = 0.0
+    for i in range(sp_num):
+        if i<sp_num-1:
+            Kt = np.dot(sv[batch_num*i:batch_num*(i+1)],X_te.T)
+#             print(Kt.shape,alpha.flatten()[batch_num*i:batch_num*(i+1)].shape)
+            dv += Kt.T.dot(alpha.flatten()[batch_num*i:batch_num*(i+1)])
+        else:
+            Kt = np.dot(sv[batch_num*i:],X_te.T)
+#             print(Kt.shape)
+            dv += Kt.T.dot(alpha.flatten()[batch_num*i:])+intercept
+    return np.sign(dv).flatten()
+
 def predict_svm(X_te, sv, alpha, intercept, kernel,gamma, **kwds):
     if kernel == 'rbf':
         Ktest = calculate_kernel(sv, X_te, kernel, gamma=gamma)
@@ -38,6 +57,7 @@ def test_svm(save_te, dataname='adult',save_dir=''):
     
     print("predict SVM")
     pred = predict_svm(X_te,**res)
+#     pred = predict_large_lin_svm(X_te,**res)
     
     print("save prediction")
     save_prediction(pred,dataname,save_dir,'svm')
