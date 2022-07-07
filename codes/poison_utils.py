@@ -5,7 +5,7 @@ import copy
 import matplotlib.pyplot as plt
 
 from fairLR_test import *
-from save_utils import load_flr, load_nparray,save_prediction
+from save_utils import  load_nparray,save_prediction
 from fair_eval import *
 
 def shuffle_array(arr_list, sample_ratio = 0.9, rs = 3):

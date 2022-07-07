@@ -182,24 +182,25 @@ def load_compas_data(filepath = '../data/compas_proc.csv',svm=False,random_state
     X = df[attrs_for_classification].values
     y = df[target_attr].values
     Z = df[sensitive_attrs].values
-    
+    print(X.shape)
     if svm:
         y = y*2-1
     
     n = X.shape[0]  # Number of examples
-
+    
     
     # Create train test split
     tr_idx, te_idx = _get_train_test_split(n, train_frac, random_state)
     Xtr, Xte, ytr, yte, Ztr, Zte = _apply_train_test_split(X, y, Z,
                                                            tr_idx, te_idx)
-    
+    print(Xtr.shape)
     mm = MinMaxScaler()
     Xtr = mm.fit_transform(Xtr)
     Xte = mm.transform(Xte)
     
     if intercept:
         Xtr, Xte = _add_intercept(Xtr, Xte)
+    print(Xtr.shape)
 #     print(Xtr.shape,ytr.shape,Ztr.shape)
     return Xtr, Xte, ytr, yte, Ztr, Zte
 

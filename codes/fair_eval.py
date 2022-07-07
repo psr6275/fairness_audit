@@ -79,15 +79,15 @@ def calculate_impact(pred,y,xs):
 
 def diff_calculate_impact(pred,y,xs):
     
-    idx_yps0 = (pred==1)*(xs==0)
-    idx_yps1 = (pred==1)*(xs==1)
+    idx_yps0 = sum((pred==1)*(xs==0))
+    idx_yps1 = sum((pred==1)*(xs==1))
 #     idx_yns0 = (pred==-1)*(xs==0)
 #     idx_yns1 = (pred==-1)*(xs==1)
     
     s0sum = sum(xs==0)
     s1sum = sum(xs==1)
     
-    diff = np.abs((sum(idx_yps1)/s1sum)-(sum(idx_yps0)/s0sum))*100
+    diff = np.abs((idx_yps1/s1sum)-(idx_yps0/s0sum))*100
     return diff
 
 def calculate_prule_clf(pred,y,xs):

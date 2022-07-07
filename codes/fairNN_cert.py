@@ -1,5 +1,5 @@
 import numpy as np
-from save_utils import load_flr, load_nparray,save_prediction
+from save_utils import load_nparray,save_prediction
 from fair_eval import calculate_overall_accuracy, diff_calculate_impact, diff_calculate_misclassification, diff_calculate_mistreatment
 import argparse
 import os
